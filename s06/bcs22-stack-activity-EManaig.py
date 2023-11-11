@@ -1,38 +1,34 @@
 class Task_Manager:
-    #---------------------------------
     def __init__(self):
-        self.tasks = []
-    #--------------------------------------
+        self.tasks_stack = []
+
     def add_task(self, title, description):
-        task = {"title": title, "description": description, "completed": False}
-        self.tasks.append(task)
+        task = [title, description, False]
+        self.tasks_stack.append(task)
         print(f"Task {title} added successfully!")
-    #------------------------------------------
+
     def mark_completed(self):
-        if self.tasks:
-            task = self.tasks.pop()
-            task["completed"] = True
-            print(f"Task {task['title']} marked as completed.")
+        if self.tasks_stack:
+            task = self.tasks_stack.pop()
+            task[2] = True
+            self.tasks_stack.append(task)  # Re-add the task with completed flag
+            print(f"Task {task[0]} marked as completed.")
         else:
             print("No tasks available for completion.")
 
-    #--------------------------------
-    def diplay_task(self):
-        if not self.tasks:
+    def display_task(self):
+        if not self.tasks_stack:
             print("No tasks available.")
         else:
             print("-------------------Your Current Task----------------------")
-            for i, Add_Task in enumerate(self.tasks):
-                if Add_Task["completed"]:
-                    status = "completed"
-                else:
-                    status = "not completed"
+            for i, task in enumerate(reversed(self.tasks_stack)):
+                status = "completed" if task[2] else "not completed"
                 print("========================================================")
-                print(f"{i + 1}.Title: {Add_Task['title']} \n  Description: {Add_Task['description']} \n  Status: {status}")
+                print(f"{i + 1}. Title: {task[0]} \n  Description: {task[1]} \n  Status: {status}")
                 print("========================================================")
 
+
 TaskManager = Task_Manager()
-#------------------------------------------------------
 
 while True:
     print("\n Task Manager Menu: ")
@@ -47,13 +43,13 @@ while True:
     if choices == "1":
         title = input("Enter Task Title:")
         description = input("Enter Description for the Task:")
-        TaskManager.add_task(title,description)
+        TaskManager.add_task(title, description)
     elif choices == "2":
-        TaskManager.diplay_task()
+        TaskManager.display_task()
         Task = int(input("Enter the Task you want to mark as completed:"))
         TaskManager.mark_completed()
     elif choices == "3":
-        TaskManager.diplay_task()
+        TaskManager.display_task()
     elif choices == "4":
         print("Exiting the Task Manager....")
         break
