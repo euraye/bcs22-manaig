@@ -1,1 +1,72 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
+class Palindra_Palooza:
+    def __init__(self):
+        self.top = None
+        self.sentence = ""
+
+    def input(self):
+       # Take input and display the palindrome result
+        self.sentence = input("Enter a sentence you want to check :) : ")
+        for char in self.sentence:
+            self.push(char)
+        self.display()
+
+    def push(self, data):
+        newNode = Node(data)
+
+        if self.top is None:
+            self.top = newNode
+        else:
+            newNode.next = self.top
+            self.top = newNode
+
+    def checking(self, data):
+        check = ""
+        #check the input sentence for palindrome comparison
+        for char in data:
+            if char.isalpha():
+                check += char.lower()
+        return check
+
+    def is_palindrome(self, data):
+        #check if def checking() is a palindrome
+        check = self.checking(data)
+        return check == check[::-1]
+
+    def display(self):
+        #Display result of the Palindrome checker if it is a Palindrome or not
+        if self.is_palindrome(self.sentence):
+            print(f"Example: {self.sentence}")
+            print("---------------------------------------------")
+            print(f"Original Sentence: {self.sentence}")
+            print("---------------------------------------------")
+            print(f"Cleaned Sentence (for comparison): {self.checking(self.sentence)}")
+            print("---------------------------------------------")
+            print(f"Yehey! The sentence '{self.sentence}' is a Palindrome!")
+            print("---------------------------------------------")
+        else:
+            print(f"Example: {self.sentence}")
+            print("---------------------------------------------")
+            print(f"Original Sentence: {self.sentence}")
+            print("---------------------------------------------")
+            print(f"Cleaned Sentence (for comparison): {self.checking(self.sentence)}")
+            print("---------------------------------------------")
+            print(f"Sorry, The sentence '{self.sentence}' is not a Palindrome!")
+            print("---------------------------------------------")
+
+# Initiate the class Palindra_Palooza
+PP = Palindra_Palooza()
+print("====================== Welcome to Palindrome Checker! ======================")
+
+
+while True:
+    # Take input, check for palindrome, and display the result
+    PP.input()
+    # Ask if the user wants to check another sentence
+    new_sentence = input("\nDo you want to check another sentence? (yes/no): ").lower()
+    if new_sentence != "yes":
+        break
