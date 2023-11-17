@@ -9,7 +9,7 @@ class Palindra_Palooza:
         self.sentence = ""
 
     def input(self):
-       # Take input and display the palindrome result
+        # Take input and display the palindrome result
         self.sentence = input("Enter a sentence you want to check :) : ")
         for char in self.sentence:
             self.push(char)
@@ -24,21 +24,26 @@ class Palindra_Palooza:
             newNode.next = self.top
             self.top = newNode
 
+    def is_alphanumeric(self, char):
+        # Check if a character is alphanumeric (a letter or a number).
+
+        return 'a' <= char <= 'z' or 'A' <= char <= 'Z' or '0' <= char <= '9'
+
     def checking(self, data):
         check = ""
-        #check the input sentence for palindrome comparison
+        # Check the input sentence for palindrome comparison
         for char in data:
-            if char.isalpha():
+            if self.is_alphanumeric(char):
                 check += char.lower()
         return check
 
     def is_palindrome(self, data):
-        #check if def checking() is a palindrome
+        # Check if def checking() is a palindrome
         check = self.checking(data)
         return check == check[::-1]
 
     def display(self):
-        #Display result of the Palindrome checker if it is a Palindrome or not
+        # Display the result of the Palindrome checker if it is a Palindrome or not
         if self.is_palindrome(self.sentence):
             print(f"Example: {self.sentence}")
             print("---------------------------------------------")
@@ -62,7 +67,6 @@ class Palindra_Palooza:
 PP = Palindra_Palooza()
 print("====================== Welcome to Palindrome Checker! ======================")
 
-
 while True:
     # Take input, check for palindrome, and display the result
     PP.input()
@@ -70,3 +74,5 @@ while True:
     new_sentence = input("\nDo you want to check another sentence? (yes/no): ").lower()
     if new_sentence != "yes":
         break
+
+
