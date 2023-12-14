@@ -1,4 +1,4 @@
-from collections import defaultdict, deque
+from collections import defaultdict
 
 print("""
         1
@@ -8,7 +8,7 @@ print("""
   4   5   6   7
            \\   \\
             8   9
-""")
+    """)
 
 class traversal_order:
     def __init__(self, key):
@@ -24,8 +24,8 @@ def vertical_traversal(root):
 
         result[distance].append((level, node.key))
 
-        dfs(node.left, distance - 1, level + 1, result)
-        dfs(node.right, distance + 1, level + 1, result)
+        dfs(node.left, distance - 1, level - 1, result)
+        dfs(node.right, distance + 1, level - 1, result)
 
     if not root:
         return []
@@ -34,10 +34,10 @@ def vertical_traversal(root):
     dfs(root, 0, 0, vertical_order)
 
     sorted_dist = sorted(vertical_order.keys(), reverse=True)
-
+    
     result = []
     for distance in sorted_dist:
-        nodes_at_distance = sorted(vertical_order[distance], key=lambda x: x[0])
+        nodes_at_distance = sorted(vertical_order[distance], key=lambda x: (x[0], -x[1]))
         result.extend(node[1] for node in nodes_at_distance)
 
     return result
